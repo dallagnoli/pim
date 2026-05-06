@@ -25,5 +25,13 @@ services:
         DB_PASSWORD: pim123
         DB_NAME: pimanager
 
+  frontend:
+    build: ./web
+    container_name: pim_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
 volumes:
   pgdata:

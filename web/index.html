@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PIM - Personal Information Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <aside class="sidebar">
+      <h2>PIM</h2>
+      <button onclick="setResource('notes')">📝 Notes</button>
+      <button onclick="setResource('ideas')">💡 Ideas</button>
+      <button onclick="setResource('links')">🔗 Links</button>
+      <button onclick="setResource('tasks')">✅ Tasks</button>
+    </aside>
+
+    <main class="main" id="main-content">
+
+      <h1 id="title">Notes</h1>
+
+      <div class="create-box">
+        <button onclick="openCreateModal()">Create</button>
+      </div>
+
+      <div id="create-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2 id="create-modal-heading">Create Item</h2>
+          <input id="create-title" placeholder="Title" />
+          <textarea id="create-content" placeholder="Content"></textarea>
+          <div class="modal-buttons">
+            <button onclick="submitCreate()">Create</button>
+            <button onclick="closeCreateModal()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2>Edit Note</h2>
+          <input id="edit-title" placeholder="title" />
+          <textarea id="edit-content" placeholder="content"></textarea>
+          <div class="modal-buttons">
+            <button onclick="saveEdit()">Save</button>
+            <button onclick="cancelEdit()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="list"></div>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
