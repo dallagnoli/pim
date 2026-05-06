@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    container_name: pim_db
+    environment:
+      POSTGRES_USER: pim
+      POSTGRES_PASSWORD: pim123
+      POSTGRES_DB: pimanager
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./api/src/db/init:/docker-entrypoint-initdb.d
+
+  api:
+      build: ./api
+      container_name: pim_api
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+      environment:
+        DB_HOST: db
+        DB_USER: pim
+        DB_PASSWORD: pim123
+        DB_NAME: pimanager
+
+volumes:
+  pgdata:
