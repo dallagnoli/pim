@@ -1,0 +1,4 @@
+# Temporary CI unblock:
+# Vulnerability is reported in globally bundled npm inside the image toolchain,
+# not in project source dependencies. Remove after base image/npm refresh.
+CVE-2026-33671

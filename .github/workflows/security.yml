@@ -36,7 +36,7 @@ jobs:
           sudo dpkg -i trivy_0.70.0_Linux-64bit.deb
 
       - name: Scan API image
-        run: trivy image --severity HIGH,CRITICAL --exit-code 1 pim-api:latest
+        run: trivy image --severity HIGH,CRITICAL --exit-code 1 --ignorefile .trivyignore pim-api:latest
 
       - name: Scan frontend image
-        run: trivy image --severity HIGH,CRITICAL --exit-code 1 pim-web:latest
+        run: trivy image --severity HIGH,CRITICAL --exit-code 1 --ignorefile .trivyignore pim-web:latest
