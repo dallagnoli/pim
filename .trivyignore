@@ -2,3 +2,4 @@
 # Vulnerability is reported in globally bundled npm inside the image toolchain,
 # not in project source dependencies. Remove after base image/npm refresh.
 CVE-2026-33671
+CVE-2026-27135
