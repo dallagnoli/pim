@@ -1,0 +1,42 @@
+name: security
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create .env for compose
+        run: |
+          cat <<EOF > .env
+          POSTGRES_USER=test
+          POSTGRES_PASSWORD=test
+          POSTGRES_DB=test
+          DB_HOST=db
+          DB_USER=test
+          DB_PASSWORD=test
+          DB_NAME=test
+          GF_SECURITY_ADMIN_USER=admin
+          GF_SECURITY_ADMIN_PASSWORD=admin
+          EOF
+
+      - name: Build images
+        run: docker compose build api frontend
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.64.1_Linux-64bit.deb
+          sudo dpkg -i trivy_0.64.1_Linux-64bit.deb
+
+      - name: Scan API image
+        run: trivy image --severity HIGH,CRITICAL --exit-code 1 pim-api:latest
+
+      - name: Scan frontend image
+        run: trivy image --severity HIGH,CRITICAL --exit-code 1 pim-web:latest
